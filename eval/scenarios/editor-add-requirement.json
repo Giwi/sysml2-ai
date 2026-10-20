@@ -1,0 +1,53 @@
+{
+  "id": "editor-add-requirement",
+  "title": "Add a requirement with a documentation comment",
+  "tags": ["edit", "create", "requirement"],
+  "role": "editor",
+  "fixture": "vehicle",
+  "goal": "Add a SafetyRequirement to the Vehicle package.",
+  "targetFiles": ["model.sysml"],
+  "provider": { "kind": "script" },
+  "script": [
+    { "toolCalls": [{ "name": "model.list_elements", "arguments": { "qnamePrefix": "Vehicle", "kind": "Package" } }] },
+    {
+      "toolCalls": [
+        {
+          "name": "model.create_element",
+          "arguments": {
+            "uri": "model.sysml",
+            "parentQname": "Vehicle",
+            "kind": "requirement def",
+            "name": "SafetyRequirement",
+            "doc": "Braking safety",
+            "body": "attribute text : String = \"The vehicle shall brake safely.\";"
+          }
+        }
+      ]
+    },
+    { "toolCalls": [{ "name": "model.validate", "arguments": {} }] },
+    {
+      "toolCalls": [
+        {
+          "name": "agent.finish",
+          "arguments": {
+            "summary": "Created Vehicle::SafetyRequirement with a text attribute.",
+            "claims": ["SafetyRequirement committed"],
+            "confidence": 0.97
+          }
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "valid": true,
+    "changed": true,
+    "elementsPresent": [{ "qname": "Vehicle::SafetyRequirement", "kind": "Requirement Definition" }],
+    "requiredTools": ["model.create_element", "model.validate"],
+    "maxSteps": 6,
+    "maxToolCalls": 6,
+    "maxToolErrors": 0,
+    "minElements": 9,
+    "summaryContains": ["SafetyRequirement"]
+  }
+}

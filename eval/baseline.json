@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-20T20:34:27.569Z",
+  "scenarios": {
+    "analyst-summary": {
+      "ok": true,
+      "steps": 4,
+      "toolCalls": 4,
+      "toolErrors": 0,
+      "durationMs": 1127,
+      "tokens": 600
+    },
+    "editor-add-requirement": {
+      "ok": true,
+      "steps": 4,
+      "toolCalls": 4,
+      "toolErrors": 0,
+      "durationMs": 131,
+      "tokens": 600
+    },
+    "editor-rename": {
+      "ok": true,
+      "steps": 5,
+      "toolCalls": 5,
+      "toolErrors": 0,
+      "durationMs": 23,
+      "tokens": 750
+    },
+    "evaluator-gate": {
+      "ok": true,
+      "steps": 4,
+      "toolCalls": 4,
+      "toolErrors": 0,
+      "durationMs": 10,
+      "tokens": 600
+    }
+  }
+}

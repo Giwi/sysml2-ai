@@ -1,0 +1,32 @@
+{
+  "id": "brake-feature",
+  "maxConcurrency": 3,
+  "maxWriteConcurrency": 1,
+  "tasks": [
+    {
+      "id": "analyse-requirements",
+      "role": "analyst",
+      "goal": "List the braking and mass requirements, and report which elements verify them."
+    },
+    {
+      "id": "analyse-structure",
+      "role": "analyst",
+      "goal": "Describe the vehicle structure and identify where a brake system would belong."
+    },
+    {
+      "id": "add-brake-system",
+      "role": "editor",
+      "goal": "Add a BrakeSystem part definition to the Vehicle package, connected to the chassis.",
+      "dependsOn": ["analyse-requirements", "analyse-structure"],
+      "targetFiles": ["model.sysml"],
+      "retries": 1
+    },
+    {
+      "id": "evaluate",
+      "role": "evaluator",
+      "goal": "Verify that the model is valid, the brake system exists, and no existing reference is broken.",
+      "dependsOn": ["add-brake-system"],
+      "requireVerdict": "pass"
+    }
+  ]
+}

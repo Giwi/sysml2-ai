@@ -1,0 +1,39 @@
+{
+  "id": "evaluator-gate",
+  "title": "Independent evaluator verifies validity and traceability",
+  "tags": ["evaluation", "gate", "read-only"],
+  "role": "evaluator",
+  "fixture": "vehicle",
+  "goal": "Check that the model is valid and MassRequirement is verified.",
+  "provider": { "kind": "script" },
+  "script": [
+    { "toolCalls": [{ "name": "model.validate", "arguments": {} }] },
+    { "toolCalls": [{ "name": "analysis.traceability", "arguments": {} }] },
+    { "toolCalls": [{ "name": "model.get_element", "arguments": { "qname": "Vehicle::MassVerification" } }] },
+    {
+      "toolCalls": [
+        {
+          "name": "agent.finish",
+          "arguments": {
+            "summary": "Model is valid and MassVerification verifies MassRequirement.",
+            "verdict": "pass",
+            "findings": [],
+            "claims": ["valid model", "MassRequirement covered"],
+            "confidence": 0.98
+          }
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "valid": true,
+    "changed": false,
+    "verdict": "pass",
+    "requiredTools": ["model.validate", "analysis.traceability"],
+    "maxSteps": 6,
+    "maxToolCalls": 6,
+    "maxToolErrors": 0,
+    "summaryContains": ["MassVerification"]
+  }
+}

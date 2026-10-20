@@ -1,0 +1,42 @@
+{
+  "id": "analyst-summary",
+  "title": "Summarise the model and requirement coverage",
+  "description": "Read-only analyst inspects structure and traceability.",
+  "tags": ["analysis", "read-only"],
+  "role": "analyst",
+  "fixture": "vehicle",
+  "goal": "Summarise the vehicle model and report requirement coverage.",
+  "provider": { "kind": "script" },
+  "script": [
+    { "toolCalls": [{ "name": "model.list_files", "arguments": {} }] },
+    { "toolCalls": [{ "name": "analysis.summary", "arguments": {} }] },
+    { "toolCalls": [{ "name": "analysis.requirements", "arguments": {} }] },
+    {
+      "toolCalls": [
+        {
+          "name": "agent.finish",
+          "arguments": {
+            "summary": "Vehicle model has 3 part definitions and MassRequirement is covered by MassVerification.",
+            "claims": ["MassRequirement is verified"],
+            "confidence": 0.95
+          }
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "valid": true,
+    "changed": false,
+    "requiredTools": ["analysis.summary", "analysis.requirements"],
+    "forbiddenTools": ["model.rename_element", "model.create_element"],
+    "maxSteps": 5,
+    "maxToolCalls": 5,
+    "maxToolErrors": 0,
+    "elementsPresent": [
+      { "qname": "Vehicle::MassRequirement", "kind": "Requirement Definition" },
+      { "qname": "Vehicle::MassVerification", "kind": "Verification Case Definition" }
+    ],
+    "summaryContains": ["MassRequirement", "MassVerification"]
+  }
+}

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+build/
+.sysml-ai/
+eval/reports/
+*.tmp
+.DS_Store
